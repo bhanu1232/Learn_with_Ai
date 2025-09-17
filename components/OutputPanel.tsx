@@ -138,7 +138,7 @@ const OutputPanel: React.FC<OutputPanelProps> = ({ testResult, aiExplanation, is
                         </div>
                     </div>
                 </div>
-            </section>
+            </Section>
     
             {feedback.suggestions && feedback.suggestions.length > 0 && (
                 <Section title="Suggestions">
