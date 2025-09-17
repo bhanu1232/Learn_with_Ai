@@ -14,6 +14,7 @@ interface EditorPanelProps {
   onRunTest: () => void;
   onGetHint: () => void;
   isLoading: boolean;
+  isHintLoading: boolean;
   onExplainProblem: () => void;
 }
 
@@ -28,6 +29,7 @@ const EditorPanel: React.FC<EditorPanelProps> = ({
   onRunTest,
   onGetHint,
   isLoading,
+  isHintLoading,
   onExplainProblem,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -73,6 +75,8 @@ const EditorPanel: React.FC<EditorPanelProps> = ({
     );
   }
 
+  const anyLoading = isLoading || isHintLoading;
+
   return (
     <div ref={containerRef} className="flex-1 flex flex-col bg-gray-900 overflow-hidden">
       {/* Problem Details Panel */}
@@ -103,8 +107,13 @@ const EditorPanel: React.FC<EditorPanelProps> = ({
               ))}
             </div>
             
-            <button onClick={onExplainProblem} className="mt-3 text-sm text-blue-accent hover:underline flex items-center gap-1">
-                <BookOpenIcon className="w-4 h-4" /> Explain with AI
+            <button 
+              onClick={onExplainProblem} 
+              disabled={anyLoading}
+              className="mt-3 text-sm text-blue-accent hover:underline flex items-center gap-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:no-underline"
+            >
+                <BookOpenIcon className="w-4 h-4" /> 
+                {isHintLoading ? 'Explaining...' : 'Explain with AI'}
             </button>
         </div>
       </div>
@@ -155,15 +164,15 @@ const EditorPanel: React.FC<EditorPanelProps> = ({
               {mode === Mode.Learning && (
                 <button 
                     onClick={onGetHint} 
-                    disabled={isLoading}
+                    disabled={anyLoading}
                     className="px-4 py-2 text-sm font-semibold text-yellow-accent bg-yellow-accent/20 rounded-md flex items-center gap-2 hover:bg-yellow-accent/30 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
                   <LightbulbIcon className="w-4 h-4" />
-                  Hint
+                  {isHintLoading ? 'Getting Hint...' : 'Hint'}
                 </button>
               )}
               <button 
                 onClick={onRunTest}
-                disabled={isLoading}
+                disabled={anyLoading}
                 className="px-4 py-2 text-sm font-semibold text-white bg-green-accent rounded-md flex items-center gap-2 hover:bg-opacity-80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <PlayIcon className="w-4 h-4" />

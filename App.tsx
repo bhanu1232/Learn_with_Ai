@@ -191,6 +191,7 @@ const App: React.FC = () => {
               onRunTest={handleRunTest}
               onGetHint={handleGetHint}
               isLoading={isLoading}
+              isHintLoading={isHintLoading}
               onExplainProblem={handleExplainProblem}
             />
           </div>
@@ -266,6 +267,7 @@ const App: React.FC = () => {
             onRunTest={handleRunTest}
             onGetHint={handleGetHint}
             isLoading={isLoading}
+            isHintLoading={isHintLoading}
             onExplainProblem={handleExplainProblem}
           />
         </div>
