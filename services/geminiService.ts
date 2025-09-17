@@ -1,6 +1,7 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { AIFeedback, Problem, Language, ChatMessage } from '../types';
 
+// Fix: Per guidelines, API key must be sourced from process.env.API_KEY
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 const feedbackSchema = {
